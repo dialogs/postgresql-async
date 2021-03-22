@@ -43,9 +43,9 @@ object ByteArrayEncoderDecoder extends ColumnEncoderDecoder {
 
       while (ci.hasNext) {
         ci.next match {
-          case '\\' ⇒ getCharOrDie(ci) match {
-            case '\\' ⇒ buffer.put('\\'.toByte)
-            case firstDigit ⇒
+          case '\\' => getCharOrDie(ci) match {
+            case '\\' => buffer.put('\\'.toByte)
+            case firstDigit =>
               val secondDigit = getCharOrDie(ci)
               val thirdDigit = getCharOrDie(ci)
               // Must always be in triplets
@@ -53,7 +53,7 @@ object ByteArrayEncoderDecoder extends ColumnEncoderDecoder {
                 Integer.decode(
                   new String(Array('0', firstDigit, secondDigit, thirdDigit))).toByte)
           }
-          case c ⇒ buffer.put(c.toByte)
+          case c => buffer.put(c.toByte)
         }
       }
 

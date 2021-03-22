@@ -96,9 +96,7 @@ class PostgreSQLConnectionHandler
     this.bootstrap.option[java.lang.Boolean](ChannelOption.SO_KEEPALIVE, true)
     this.bootstrap.option(ChannelOption.ALLOCATOR, configuration.allocator)
 
-    this.bootstrap.connect(new InetSocketAddress(configuration.host, configuration.port)).onFailure {
-      case e => connectionFuture.tryFailure(e)
-    }
+    this.bootstrap.connect(new InetSocketAddress(configuration.host, configuration.port)).failed.foreach(e => connectionFuture.tryFailure(e))
 
     this.connectionFuture.future
   }
@@ -265,8 +263,8 @@ class PostgreSQLConnectionHandler
   }
 
   def write( message : ClientMessage ) {
-    this.currentContext.writeAndFlush(message).onFailure {
-      case e : Throwable => connectionDelegate.onError(e)
+    this.currentContext.writeAndFlush(message).failed.foreach {
+      e: Throwable => connectionDelegate.onError(e)
     }
   }
 

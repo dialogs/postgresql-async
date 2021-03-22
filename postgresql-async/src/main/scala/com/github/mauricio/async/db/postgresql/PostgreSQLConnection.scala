@@ -88,9 +88,7 @@ class PostgreSQLConnection
   def isReadyForQuery: Boolean = this.queryPromise.isEmpty
 
   def connect: Future[Connection] = {
-    this.connectionHandler.connect.onFailure {
-      case e => this.connectionFuture.tryFailure(e)
-    }
+    this.connectionHandler.connect.failed.foreach(e => this.connectionFuture.tryFailure(e))
 
     this.connectionFuture.future
   }

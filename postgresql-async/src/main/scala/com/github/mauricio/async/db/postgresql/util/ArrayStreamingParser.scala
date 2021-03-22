@@ -24,7 +24,7 @@ object ArrayStreamingParser {
 
   val log = Log.getByName(ArrayStreamingParser.getClass.getName)
 
-  def parse(content: String, delegate: ArrayStreamingParserDelegate) {
+  def parse(content: String, delegate: ArrayStreamingParserDelegate) = {
 
     var index = 0
     var escaping = false
@@ -90,7 +90,7 @@ object ArrayStreamingParser {
 
   }
 
-  def sendElementEvent(builder: mutable.StringBuilder, quoted: Boolean, delegate: ArrayStreamingParserDelegate) {
+  def sendElementEvent(builder: mutable.StringBuilder, quoted: Boolean, delegate: ArrayStreamingParserDelegate) = {
 
     val value = builder.toString()
 

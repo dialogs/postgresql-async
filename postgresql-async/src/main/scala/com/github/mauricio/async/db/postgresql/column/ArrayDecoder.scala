@@ -41,7 +41,7 @@ class ArrayDecoder(private val decoder: ColumnDecoder) extends ColumnDecoder {
         stack = stack.tail
       }
 
-      override def elementFound(element: String) {
+      override def elementFound(element: String) = {
         val result = if ( decoder.supportsStringDecoding ) {
           decoder.decode(element)
         } else {
@@ -50,11 +50,11 @@ class ArrayDecoder(private val decoder: ColumnDecoder) extends ColumnDecoder {
         current += result
       }
 
-      override def nullElementFound {
+      override def nullElementFound = {
         current += null
       }
 
-      override def arrayStarted {
+      override def arrayStarted = {
         current = new ArrayBuffer[Any]()
 
         stack.headOption match {

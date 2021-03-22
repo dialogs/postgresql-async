@@ -39,9 +39,9 @@ abstract class AbstractURIParser {
    * @return a tuple of optional username and password
    */
   final protected def parseUserInfo(userInfo: Option[String]): (Option[String], Option[String]) = userInfo.map(_.split(":", 2).toList) match {
-    case Some(user :: pass :: Nil) ⇒ (Some(user), Some(pass))
-    case Some(user :: Nil) ⇒ (Some(user), None)
-    case _ ⇒ (None, None)
+    case Some(user :: pass :: Nil) => (Some(user), Some(pass))
+    case Some(user :: Nil) => (Some(user), None)
+    case _ => (None, None)
   }
 
   /**
